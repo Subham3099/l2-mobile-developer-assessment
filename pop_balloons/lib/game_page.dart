@@ -67,14 +67,17 @@ class PopBalloonsGameState extends State<PopBalloonsGame> {
     setState(() {
       for (int i = 0; i < balloons.length; i++) {
         Balloon balloon = balloons[i];
-        if (!balloon.popped) {
+
           double speed = 20 + (120-_timeInSeconds)/40;
           balloon.y -= speed; // Adjust speed as needed
           if (balloon.y < 0) {
-            balloon.popped = true;
-            _score--; // Penalty for missed balloon
+            if(balloon.popped == false)
+              {
+                balloon.popped = true;
+                _score--; // Penalty for missed balloon
+              }
           }
-        }
+
       }
     });
   }
@@ -156,12 +159,12 @@ class PopBalloonsGameState extends State<PopBalloonsGame> {
                   onTap: () => _handleBalloonTap(balloons.indexOf(balloon)),
                   child: balloon.popped
                       ? Image.asset(
-                    'lib/assets/balloon.png', // Path to the popped balloon image
+                    'lib/assets/red.png', // Path to the popped balloon image
                     width: 50,
                     height: 70,
                   )
                       : Image.asset(
-                    'lib/assets/red.png', // Path to the unpopped balloon image
+                    'lib/assets/balloon.png', // Path to the unpopped balloon image
                     width: 50,
                     height: 70,
                   ),
